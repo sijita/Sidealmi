@@ -10,23 +10,24 @@ function App() {
   const canvasRef = useRef(null);
   const connect = window.drawConnectors;
   var camera = null;
-
+  
   const [conteoMuestra, setConteoMuestra] = useState(0);
 
   let parpadeo = false;
   let conteo = 0;
-
+  
   const [microSueno, setMicroSueno] = useState(0);
-
+  
   const [isSleep, setIsSleep] = useState(false);
   const [initialTime, setInitialTime] = useState(0);
   const [isPaused, setIsPaused] = useState(true);
+  const [audio, setAudio] = useState(new Audio(sound));
 
   const handleInitialTime = () => {
     setIsSleep(true);
     setIsPaused(false);
   };
-
+  
   const handleIsPaused = () => {
     setIsPaused(true);
   };
@@ -37,11 +38,9 @@ function App() {
 
     const lista = [];
 
-    // const video = webcamRef.current.video;
     const videoWidth = webcamRef.current.video.videoWidth;
     const videoHeight = webcamRef.current.video.videoHeight;
 
-    // Set canvas width
     canvasRef.current.width = videoWidth;
     canvasRef.current.height = videoHeight;
 
@@ -176,7 +175,6 @@ function App() {
     return () => clearInterval(interval);
   }, [isSleep, isPaused]);
 
-  const [audio, setAudio] = useState(new Audio(sound));
 
   useEffect(() => {
     audio.loop = true;
@@ -187,8 +185,8 @@ function App() {
 
   return (
     <div className="App">
-      <div className="navbar bg-base-200 justify-center mb-20">
-        <a href="/" className="btn btn-ghost normal-case text-2xl font-bold">
+      <div className="navbar bg-base-200 justify-center mb-20 py-5">
+        <a href="/" className="btn btn-ghost normal-case text-4xl font-bold">
           Sidealmi
         </a>
       </div>
@@ -202,20 +200,20 @@ function App() {
       />
       <canvas
         ref={canvasRef}
-        className="output_canvas left-0 right-0 mx-auto z-10 rounded-lg"
+        className="output_canvas absolute left-0 right-0 mx-auto z-10 rounded-lg"
         style={{
           width: 640,
           height: 480,
         }}
       ></canvas>
-      <div className="flex flex-col items-center justify-start mt-10 gap-5">
+      <div className="flex flex-col items-center justify-center mb-10 pb-20 gap-5 top-3/4 absolute w-full">
         <h1 className="text-5xl font-bold">Conteo: {conteoMuestra}</h1>
         <h1 className="text-5xl font-bold">Microsuenos: {microSueno}</h1>
         <h1 className="text-3xl font-bold">
           Tiempo: {initialTime >= 3 ? initialTime : 0} s
         </h1>
         <button
-          className="btn"
+          className="btn btn-error"
           onClick={() => {
             audio.pause();
             audio.loop = false;
