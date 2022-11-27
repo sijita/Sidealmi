@@ -10,14 +10,14 @@ function App() {
   const canvasRef = useRef(null);
   const connect = window.drawConnectors;
   var camera = null;
-  
+
   const [conteoMuestra, setConteoMuestra] = useState(0);
 
   let parpadeo = false;
   let conteo = 0;
-  
+
   const [microSueno, setMicroSueno] = useState(0);
-  
+
   const [isSleep, setIsSleep] = useState(false);
   const [initialTime, setInitialTime] = useState(0);
   const [isPaused, setIsPaused] = useState(true);
@@ -27,7 +27,7 @@ function App() {
     setIsSleep(true);
     setIsPaused(false);
   };
-  
+
   const handleIsPaused = () => {
     setIsPaused(true);
   };
@@ -175,7 +175,6 @@ function App() {
     return () => clearInterval(interval);
   }, [isSleep, isPaused]);
 
-
   useEffect(() => {
     audio.loop = true;
     if (initialTime >= 3) {
@@ -185,42 +184,48 @@ function App() {
 
   return (
     <div className="App">
-      <div className="navbar bg-base-200 justify-center mb-20 py-5">
+      <div className="navbar bg-base-200 justify-center py-5">
         <a href="/" className="btn btn-ghost normal-case text-4xl font-bold">
           Sidealmi
         </a>
       </div>
-      <Webcam
-        ref={webcamRef}
-        className="absolute left-0 right-0 mx-auto z-10 rounded-lg"
-        style={{
-          width: 640,
-          height: 480,
-        }}
-      />
-      <canvas
-        ref={canvasRef}
-        className="output_canvas absolute left-0 right-0 mx-auto z-10 rounded-lg"
-        style={{
-          width: 640,
-          height: 480,
-        }}
-      ></canvas>
-      <div className="flex flex-col items-center justify-center mb-10 pb-20 gap-5 top-3/4 absolute w-full">
-        <h1 className="text-5xl font-bold">Conteo: {conteoMuestra}</h1>
-        <h1 className="text-5xl font-bold">Microsuenos: {microSueno}</h1>
-        <h1 className="text-3xl font-bold">
-          Tiempo: {initialTime >= 3 ? initialTime : 0} s
-        </h1>
-        <button
-          className="btn btn-error"
-          onClick={() => {
-            audio.pause();
-            audio.loop = false;
-          }}
-        >
-          Desactivar sonido
-        </button>
+      <div className="flex flex-col h-screen">
+        <Webcam
+          ref={webcamRef}
+          className="my-20 w-4/5 max-w-[640px] left-0 right-0 mx-auto z-10 rounded-lg"
+          // style={{
+          //   width: 640,
+          //   height: 480,
+          // }}
+        />
+        <canvas
+          ref={canvasRef}
+          className="output_canvas absolute my-20 w-4/5 max-w-[640px] left-0 right-0 mx-auto z-10 rounded-lg"
+          // style={{
+          //   width: 640,
+          //   height: 480,
+          // }}
+        ></canvas>
+        <div className="flex flex-col items-center justify-end gap-5 w-full">
+          <h1 className="sm:text-5xl text-3xl font-bold">
+            Conteo: {conteoMuestra}
+          </h1>
+          <h1 className="sm:text-5xl text-3xl font-bold">
+            Microsuenos: {microSueno}
+          </h1>
+          <h1 className="sm:text-3xl text-3xl font-bold">
+            Tiempo: {initialTime >= 3 ? initialTime : 0} s
+          </h1>
+          <button
+            className="btn btn-error mt-5"
+            onClick={() => {
+              audio.pause();
+              audio.loop = false;
+            }}
+          >
+            Desactivar sonido
+          </button>
+        </div>
       </div>
     </div>
   );
