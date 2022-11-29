@@ -3,7 +3,7 @@ import { useRef, useEffect, useState } from 'react';
 import * as Facemesh from '@mediapipe/face_mesh';
 import * as cam from '@mediapipe/camera_utils';
 import Webcam from 'react-webcam';
-import sound from './mariobros.ogg';
+import sound from './sonido.mp3';
 
 function App() {
   const webcamRef = useRef(null);
@@ -167,7 +167,7 @@ function App() {
       }, 1000);
     } else {
       clearInterval(interval);
-      if (initialTime >= 3) {
+      if (initialTime >= 2) {
         setMicroSueno(microSueno + 1);
       }
     }
@@ -177,7 +177,7 @@ function App() {
 
   useEffect(() => {
     audio.loop = true;
-    if (initialTime >= 3) {
+    if (initialTime >= 2) {
       audio.play();
     }
   }, [initialTime]);
@@ -211,10 +211,10 @@ function App() {
             Conteo: {conteoMuestra}
           </h1>
           <h1 className="sm:text-5xl text-3xl font-bold">
-            Microsuenos: {microSueno}
+            Micro sueños: {microSueno}
           </h1>
           <h1 className="sm:text-3xl text-3xl font-bold">
-            Tiempo: {initialTime >= 3 ? initialTime : 0} s
+            Tiempo: {initialTime >= 2 ? initialTime : 0} s
           </h1>
           <button
             className="btn btn-error mt-5"
